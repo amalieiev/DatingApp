@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController]
-[Route("/users")]
+[Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly DataContext _context;
@@ -16,14 +16,14 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<AppUser>> GetUsers()
+    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
-        return _context.Users.ToList();
+        return await Task.FromResult(_context.Users.ToList());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<AppUser> GetUserById(int id)
+    public async Task<ActionResult<AppUser>> GetUserById(int id)
     {
-        return _context.Users.Find(id);
+        return await Task.FromResult(_context.Users.Find(id));
     }
 }
