@@ -20,9 +20,9 @@ public class Startup
 {
     private readonly IConfiguration _config;
 
-    public Startup(IConfiguration configuration)
+    public Startup(IConfiguration config)
     {
-        _config = configuration;
+        _config = config;
     }
 
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -30,7 +30,7 @@ public class Startup
     {
         services.AddDbContext<DataContext>(options =>
         {
-            options.UseSqlite(_config.GetValue<string>("test"));
+            options.UseSqlite(_config.GetConnectionString("Default"));
         });
         services.AddControllers();
     }
