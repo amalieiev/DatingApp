@@ -33,6 +33,7 @@ public class Startup
             options.UseSqlite(_config.GetConnectionString("Default"));
         });
         services.AddControllers();
+        services.AddCors();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +46,9 @@ public class Startup
 
         app.UseRouting();
 
-        // app.UseAuthorization();
+        app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+        app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
         {
