@@ -25,4 +25,10 @@ public class UsersController : BaseApiController
     {
         return await _context.Users.FindAsync(id);
     }
+
+    [HttpGet("test")]
+    public int Get()
+    {
+        return 10;
+    }
 }
