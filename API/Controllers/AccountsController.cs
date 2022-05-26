@@ -21,18 +21,15 @@ public class AccountController : BaseApiController
     [HttpPost("register")]
     public async Task<ActionResult<AppUser>> Register(RegisterDto data)
     {
+        var isUserExist = await _context.Users.AnyAsync(x => x.UserName.ToLower() == data.Username.ToLower());
+
+        if (isUserExist) return BadRequest("Username is already taken");
+
         using var hmac = new HMACSHA512();
-        var users = await _context.Users.ToListAsync();
-        var user = users.Find(item => item.UserName == data.Username);
 
-        if (user is not null)
+        var user = new AppUser
         {
-            return null;
-        }
-
-        user = new AppUser
-        {
-            UserName = data.Username,
+            UserName = data.Username.ToLower(),
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(data.Password)),
             PasswordSalt = hmac.Key
         };
