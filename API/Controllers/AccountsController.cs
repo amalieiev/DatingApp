@@ -3,6 +3,7 @@ using System.Text;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,6 @@ public class AccountController : BaseApiController
             if (passwordHash[i] != user.PasswordHash[i]) return Unauthorized("Password is invalid");
         }
 
-        return new UserDto { Username = user.UserName, Token = _tokenService.CreateToken(user) };
+        return user.ToUserDto(_tokenService);
     }
 }
