@@ -322,6 +322,9 @@ __pycache__/
 # tools/**
 # !tools/packages.config
 
+DATA/*-shm
+DATA/*-wal
+
 # Tabs Studio
 *.tss
 
