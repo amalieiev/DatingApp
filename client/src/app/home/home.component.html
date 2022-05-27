@@ -1,10 +1,24 @@
-<div class="container">
-    <h1 class="text-center mt-5">Find your match</h1>
+<div class="mt-5"></div>
+
+<alert *ngFor="let error of errors" type="danger" dismissOnTimeout="2000">
+    <strong>Oh snap!</strong> {{ error }}.
+</alert>
+
+<div *ngIf="!registerMode" class="container">
+    <h1 class="text-center">Find your match</h1>
     <p class="lead text-center">Come on in to view matches... all you need just sign up!</p>
     <div class="text-center">
-        <button class="btn btn-success btn-lg" style="margin-right: 1rem">Register</button>
+        <button class="btn btn-success btn-lg" style="margin-right: 1rem" (click)="onToggleRegister()">Register</button>
         <button class="btn btn-info btn-lg">Learn more...</button>
     </div>
 </div>
 
-<div class="container"></div>
+<div *ngIf="registerMode" class="container">
+    <div class="row justify-content-center">
+        <form [formGroup]="form" class="d-flex" role="search" (ngSubmit)="onRegister()">
+            <input formControlName="username" class="form-control me-2" type="text" placeholder="Login" />
+            <input formControlName="password" class="form-control me-2" type="password" placeholder="Password" />
+            <button class="btn btn-outline-success" type="submit">Register</button>
+        </form>
+    </div>
+</div>

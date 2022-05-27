@@ -9,16 +9,17 @@ import { IUserAccount } from '../interfaces/user-account.interface';
     providedIn: 'root',
 })
 export class AccountService {
+    private readonly _base = 'https://localhost:5001';
+
     private readonly _user: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
     public readonly user: Observable<IUserAccount | null> = this._user.asObservable();
 
     constructor(private http: HttpClient) {}
 
     public login(user: IUser): Observable<IUserAccount> {
-        return this.http.post<IUserAccount>('https://localhost:5001/api/Account/Login', user).pipe(
-            tap((response) => {
-                localStorage.setItem('user', JSON.stringify(response));
-                this._user.next(response);
+        return this.http.post<IUserAccount>(this._base + '/api/Account/Login', user).pipe(
+            tap((userAccount) => {
+                this.setUser(userAccount);
             })
         );
     }
@@ -37,7 +38,30 @@ export class AccountService {
     }
 
     public logout(): void {
-        localStorage.removeItem('user');
-        this._user.next(null);
+        this.setUser(null);
+    }
+
+    public register(user: IUser): Observable<IUserAccount> {
+        return this.http.post<IUserAccount>(this._base + '/api/Account/Register', user).pipe(
+            tap((userAccount) => {
+                this.setUser(userAccount);
+            })
+        );
+    }
+
+    /**
+     * Set or Remove user account
+     *
+     * @param userAccount
+     * @private
+     */
+    private setUser(userAccount: IUserAccount | null) {
+        if (userAccount) {
+            localStorage.setItem('user', JSON.stringify(userAccount));
+        } else {
+            localStorage.removeItem('user');
+        }
+
+        this._user.next(userAccount);
     }
 }
