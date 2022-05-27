@@ -1,4 +1,5 @@
-<app-nav (login)="onLogin($event)"></app-nav>
+<app-nav [username]="(user | async)?.username" (login)="onLogin($event)" (logout)="onLogout()"></app-nav>
+
 <div class="container">
     <router-outlet></router-outlet>
 </div>

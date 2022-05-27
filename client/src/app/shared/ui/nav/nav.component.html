@@ -12,7 +12,13 @@
                 <a class="nav-link" href="messages">Messages</a>
             </li>
         </ul>
-        <form [formGroup]="form" class="d-flex" role="search">
+
+        <div *ngIf="username">
+            <span class="username" *ngIf="username">{{ username }}</span>
+            <button class="btn btn-outline-success" (click)="onLogout()">Logout</button>
+        </div>
+
+        <form *ngIf="!username" [formGroup]="form" class="d-flex" role="search">
             <input formControlName="username" class="form-control me-2" type="text" placeholder="Login" />
             <input formControlName="password" class="form-control me-2" type="password" placeholder="Password" />
             <button class="btn btn-outline-success" type="submit" (click)="onLogin()">Login</button>
