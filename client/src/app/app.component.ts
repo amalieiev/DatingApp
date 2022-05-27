@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserLoginDto } from './shared/ui/nav/nav.component';
-import { AuthService } from './shared/data-access/auth.service';
+import { AccountService } from './shared/data-access/account.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,19 +9,19 @@ import { Observable } from 'rxjs';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-    public user: Observable<UserLoginDto | null> = this.auth.user;
+    public user: Observable<UserLoginDto | null> = this.account.user;
 
-    public constructor(private auth: AuthService) {}
+    public constructor(private account: AccountService) {}
 
     public ngOnInit(): void {
-        this.auth.isAuthorized();
+        this.account.isAuthorized();
     }
 
     public onLogin(user: UserLoginDto) {
-        this.auth.login(user).subscribe();
+        this.account.login(user).subscribe();
     }
 
     public onLogout() {
-        this.auth.logout();
+        this.account.logout();
     }
 }

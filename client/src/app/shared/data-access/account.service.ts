@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class AuthService {
+export class AccountService {
     private readonly _user: BehaviorSubject<UserLoginDto | null> = new BehaviorSubject<UserLoginDto | null>(null);
     public readonly user: Observable<UserLoginDto | null> = this._user.asObservable();
 
