@@ -1,10 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-export interface UserLoginDto {
-    username: string;
-    password: string;
-}
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
     selector: 'app-nav',
@@ -21,7 +17,7 @@ export class NavComponent implements OnInit {
     public username: string | null | undefined = null;
 
     @Output()
-    public login: EventEmitter<UserLoginDto> = new EventEmitter<UserLoginDto>();
+    public login: EventEmitter<IUser> = new EventEmitter<IUser>();
 
     @Output()
     public logout: EventEmitter<void> = new EventEmitter<void>();

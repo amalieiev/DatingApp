@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserLoginDto } from './shared/ui/nav/nav.component';
 import { AccountService } from './shared/data-access/account.service';
 import { Observable } from 'rxjs';
+import { IUser } from './shared/interfaces/user.interface';
 
 @Component({
     selector: 'app-root',
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-    public user: Observable<UserLoginDto | null> = this.account.user;
+    public user: Observable<IUser | null> = this.account.user;
 
     public constructor(private account: AccountService) {}
 
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
         this.account.isAuthorized();
     }
 
-    public onLogin(user: UserLoginDto) {
+    public onLogin(user: IUser) {
         this.account.login(user).subscribe();
     }
 

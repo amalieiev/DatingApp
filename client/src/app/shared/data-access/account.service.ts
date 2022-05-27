@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { UserLoginDto } from '../ui/nav/nav.component';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IUser } from '../interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AccountService {
-    private readonly _user: BehaviorSubject<UserLoginDto | null> = new BehaviorSubject<UserLoginDto | null>(null);
-    public readonly user: Observable<UserLoginDto | null> = this._user.asObservable();
+    private readonly _user: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
+    public readonly user: Observable<IUser | null> = this._user.asObservable();
 
     constructor(private http: HttpClient) {}
 
-    public login(user: UserLoginDto): Observable<UserLoginDto> {
-        return this.http.post<UserLoginDto>('https://localhost:5001/api/Account/Login', user).pipe(
+    public login(user: IUser): Observable<IUser> {
+        return this.http.post<IUser>('https://localhost:5001/api/Account/Login', user).pipe(
             tap((response) => {
                 localStorage.setItem('user', JSON.stringify(response));
                 this._user.next(response);
