@@ -5,15 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavModule } from './shared/ui/nav/nav.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        NavModule,
-    ],
+    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, NavModule, HttpClientModule],
     providers: [],
     bootstrap: [AppComponent],
 })
