@@ -5,11 +5,7 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'users',
-    },
-    {
-        path: 'users',
-        loadChildren: () => import('./users/users.module').then((m) => m.UsersModule),
+        redirectTo: 'home',
     },
     {
         path: 'list',
@@ -22,6 +18,10 @@ const routes: Routes = [
     {
         path: 'matches',
         loadChildren: () => import('./matches/matches.module').then((m) => m.MatchesModule),
+    },
+    {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
     },
 ];
 
