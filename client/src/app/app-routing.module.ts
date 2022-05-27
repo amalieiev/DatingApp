@@ -9,20 +9,20 @@ const routes: Routes = [
     },
     {
         path: 'users',
-        loadChildren: () =>
-            import('./users/users.module').then((m) => m.UsersModule),
+        loadChildren: () => import('./users/users.module').then((m) => m.UsersModule),
     },
     {
         path: 'list',
-        loadChildren: () =>
-            import('./list/list.module').then((m) => m.ListModule),
+        loadChildren: () => import('./list/list.module').then((m) => m.ListModule),
     },
     {
         path: 'messages',
-        loadChildren: () =>
-            import('./messages/messages.module').then((m) => m.MessagesModule),
+        loadChildren: () => import('./messages/messages.module').then((m) => m.MessagesModule),
     },
-    { path: 'matches', loadChildren: () => import('./matches/matches.module').then(m => m.MatchesModule) },
+    {
+        path: 'matches',
+        loadChildren: () => import('./matches/matches.module').then((m) => m.MatchesModule),
+    },
 ];
 
 @NgModule({
