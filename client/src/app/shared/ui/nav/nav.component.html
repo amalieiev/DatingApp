@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="/users">Dating App</a>
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ul *ngIf="username" class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
                 <a class="nav-link" href="/matches">Matches</a>
             </li>
@@ -9,19 +9,23 @@
                 <a class="nav-link" href="/list">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="messages">Messages</a>
+                <a class="nav-link" href="/messages">Messages</a>
             </li>
         </ul>
 
-        <div *ngIf="username">
-            <span class="username" *ngIf="username">{{ username }}</span>
-            <button class="btn btn-outline-success" (click)="onLogout()">Logout</button>
+        <div *ngIf="username" class="dropdown" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{ username }}</a>
+            <div *dropdownMenu class="dropdown-menu">
+                <a class="dropdown-item">Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="onLogout()">Logout</a>
+            </div>
         </div>
 
-        <form *ngIf="!username" [formGroup]="form" class="d-flex" role="search">
+        <form *ngIf="!username" [formGroup]="form" class="d-flex" role="search" (ngSubmit)="onLogin()">
             <input formControlName="username" class="form-control me-2" type="text" placeholder="Login" />
             <input formControlName="password" class="form-control me-2" type="password" placeholder="Password" />
-            <button class="btn btn-outline-success" type="submit" (click)="onLogin()">Login</button>
+            <button class="btn btn-outline-success" type="submit">Login</button>
         </form>
     </div>
 </nav>
