@@ -6,10 +6,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavModule } from './shared/ui/nav/nav.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, NavModule, HttpClientModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NavModule,
+        HttpClientModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-right',
+        }),
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })

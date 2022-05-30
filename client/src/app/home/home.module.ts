@@ -8,6 +8,6 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 
 @NgModule({
     declarations: [HomeComponent],
-    imports: [CommonModule, HomeRoutingModule, ReactiveFormsModule, AlertModule.forRoot()],
+    imports: [CommonModule, HomeRoutingModule, ReactiveFormsModule],
 })
 export class HomeModule {}

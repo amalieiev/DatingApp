@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { IUser } from '../shared/interfaces/user.interface';
 import { AccountService } from '../shared/data-access/account.service';
 import { IHttpError } from '../shared/interfaces/http-error.interface';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -17,9 +19,12 @@ export class HomeComponent implements OnInit {
         password: '',
     });
 
-    public errors: string[] = [];
-
-    public constructor(private fb: FormBuilder, private account: AccountService) {}
+    public constructor(
+        private fb: FormBuilder,
+        private account: AccountService,
+        private toaster: ToastrService,
+        private router: Router
+    ) {}
 
     public ngOnInit(): void {}
 
@@ -31,21 +36,13 @@ export class HomeComponent implements OnInit {
         const user: IUser = this.form.getRawValue();
 
         this.account.register(user).subscribe({
+            next: (user) => {
+                this.router.navigateByUrl('/matches');
+            },
             error: (error) => {
-                this.showError(error);
+                this.toaster.error(error.error);
             },
         });
-    }
-
-    private showError(error: IHttpError) {
-        if (error.error) {
-            this.errors = [error.error];
-        }
-        if (error.errors) {
-            this.errors = Object.entries(error.errors).map(([name, value]) => {
-                return value[0];
-            });
-        }
     }
 
     public onCancel() {
