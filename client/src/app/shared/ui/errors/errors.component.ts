@@ -12,7 +12,7 @@ export class ErrorsComponent implements OnInit {
     ngOnInit(): void {}
 
     getValidationError() {
-        this.http.get('https://localhost:5001/api/buggy/auth').subscribe(console.log, console.log);
+        this.http.post('https://localhost:5001/api/Account/Register', {}).subscribe(console.log, console.log);
     }
 
     getAuthError() {
