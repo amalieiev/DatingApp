@@ -47,4 +47,8 @@ export class HomeComponent implements OnInit {
             });
         }
     }
+
+    public onCancel() {
+        this.registerMode = false;
+    }
 }
