@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities;
 
-[Table("Users")]
 public class AppUser
 {
     public int Id { get; set; }
@@ -11,4 +10,3 @@ public class AppUser
     public byte[] PasswordSalt { get; set; }
     public Photo[] UserPhotos { get; set; }
 }
-
