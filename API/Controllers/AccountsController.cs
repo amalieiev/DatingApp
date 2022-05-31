@@ -5,6 +5,7 @@ using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Interfaces;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +17,13 @@ public class AccountController : ControllerBase
 {
     private readonly DataContext _context;
     private readonly ITokenService _tokenService;
+    private readonly IUsersService _usersService;
 
-    public AccountController(DataContext context, ITokenService tokenService)
+    public AccountController(DataContext context, ITokenService tokenService, IUsersService usersService)
     {
         _context = context;
         _tokenService = tokenService;
+        _usersService = usersService;
     }
 
 
@@ -31,18 +34,7 @@ public class AccountController : ControllerBase
 
         if (isUserExist) return BadRequest("Username is already taken");
 
-        using var hmac = new HMACSHA512();
-
-        var user = new AppUser
-        {
-            UserName = data.Username.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(data.Password)),
-            PasswordSalt = hmac.Key
-        };
-
-        _context.Users.Add(user);
-
-        await _context.SaveChangesAsync();
+        var user = await _usersService.CreateUser(data.Username, data.Password);
 
         return new UserDto { Username = user.UserName, Token = _tokenService.CreateToken(user) };
     }
@@ -67,21 +59,12 @@ public class AccountController : ControllerBase
     }
     
     [HttpPost("ChangePassword")]
-    public async Task<ActionResult<bool>> ChangePassword(LoginDto data)
+    public async Task<ActionResult<bool>> ChangePassword([FromBody] LoginDto data)
     {
         var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == data.Username);
 
         if (user is null) return Unauthorized("User not found");
 
-        using var hmac = new HMACSHA512();
-
-        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(data.Password));
-        user.PasswordSalt = hmac.Key;
-
-        _context.Entry(user).State = EntityState.Modified;
-
-        await _context.SaveChangesAsync();
-
-        return true;
+        return await _usersService.ChangeUserPassword(data.Username, data.Password);
     }
 }
