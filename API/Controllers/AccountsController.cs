@@ -65,4 +65,23 @@ public class AccountController : ControllerBase
 
         return user.ToUserDto(_tokenService);
     }
+    
+    [HttpPost("ChangePassword")]
+    public async Task<ActionResult<bool>> ChangePassword(LoginDto data)
+    {
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == data.Username);
+
+        if (user is null) return Unauthorized("User not found");
+
+        using var hmac = new HMACSHA512();
+
+        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(data.Password));
+        user.PasswordSalt = hmac.Key;
+
+        _context.Entry(user).State = EntityState.Modified;
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
