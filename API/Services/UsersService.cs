@@ -58,4 +58,9 @@ public class UsersService : IUsersService
 
         return await _context.SaveChangesAsync() > 0;
     }
+
+    public async Task<AppUser> GetUserByUserName(string username)
+    {
+        return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.UserName == username);
+    }
 }
