@@ -35,12 +35,12 @@ public class UsersService : IUsersService
 
     public Task<AppUser[]> GetAllUsers()
     {
-        return _context.Users.ToArrayAsync();
+        return _context.Users.Include(x => x.UserPhotos).ToArrayAsync();
     }
 
     public async Task<AppUser> GetUserById(int userId)
     {
-        return await _context.Users.FindAsync(userId);
+        return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.Id == userId);
     }
 
     public async Task<bool> ChangeUserPassword(string username, string password)
@@ -48,7 +48,7 @@ public class UsersService : IUsersService
         var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
 
         if (user is null) return false;
-        
+
         using var hmac = new HMACSHA512();
 
         user.PasswordSalt = hmac.Key;
