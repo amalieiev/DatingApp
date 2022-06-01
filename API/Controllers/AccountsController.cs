@@ -36,7 +36,7 @@ public class AccountController : ControllerBase
 
         var user = await _usersService.CreateUser(data.Username, data.Password);
 
-        return new UserDto { Username = user.UserName, Token = _tokenService.CreateToken(user) };
+        return new UserDto {Username = user.UserName, Token = _tokenService.CreateToken(user)};
     }
 
     [HttpPost("Login")]
@@ -57,7 +57,7 @@ public class AccountController : ControllerBase
 
         return user.ToUserDto(_tokenService);
     }
-    
+
     [HttpPost("ChangePassword")]
     public async Task<ActionResult<bool>> ChangePassword([FromBody] LoginDto data)
     {

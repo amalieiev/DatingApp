@@ -52,7 +52,7 @@ public class UsersService : IUsersService
         using var hmac = new HMACSHA512();
 
         user.PasswordSalt = hmac.Key;
-        user.PasswordHash = Encoding.UTF8.GetBytes(password);
+        user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
 
         _context.Entry(user).State = EntityState.Modified;
 
