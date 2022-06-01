@@ -21,6 +21,7 @@ public class Startup
     {
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUsersService, UsersService>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlite(_config.GetConnectionString("Default"));
