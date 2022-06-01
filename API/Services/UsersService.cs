@@ -33,9 +33,9 @@ public class UsersService : IUsersService
         return user;
     }
 
-    public Task<AppUser[]> GetAllUsers()
+    public async Task<IEnumerable<AppUser>> GetAllUsers()
     {
-        return _context.Users.Include(x => x.UserPhotos).ToArrayAsync();
+        return await _context.Users.Include(x => x.UserPhotos).ToListAsync();
     }
 
     public async Task<AppUser> GetUserById(int userId)
