@@ -13,27 +13,25 @@ namespace API.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUsersService _usersService;
-    private readonly IMapper _mapper;
 
-    public UsersController(IUsersService usersService, IMapper mapper)
+    public UsersController(IUsersService usersService)
     {
         _usersService = usersService;
-        _mapper = mapper;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
     {
-        return Ok(_mapper.Map<IEnumerable<MemberDto>>(await _usersService.GetAllUsers()));
+        return Ok(await _usersService.GetMembers());
     }
 
     [HttpGet("{username}")]
     public async Task<ActionResult<MemberDto>> GetUserById(string username)
     {
-        var user = await _usersService.GetUserByUserName(username);
+        var user = await _usersService.GetMemberByName(username);
 
         if (user is null) return NotFound();
 
-        return Ok(_mapper.Map<MemberDto>(user));
+        return Ok(user);
     }
 }

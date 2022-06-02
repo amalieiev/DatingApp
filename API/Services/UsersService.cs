@@ -1,7 +1,10 @@
 using System.Security.Cryptography;
 using System.Text;
 using API.Data;
+using API.DTOs;
 using API.Entities;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services;
@@ -9,10 +12,12 @@ namespace API.Services;
 public class UsersService : IUsersService
 {
     private readonly DataContext _context;
+    private readonly IMapper _mapper;
 
-    public UsersService(DataContext context)
+    public UsersService(DataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<AppUser> CreateUser(string username, string password)
@@ -62,5 +67,17 @@ public class UsersService : IUsersService
     public async Task<AppUser> GetUserByUserName(string username)
     {
         return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.Username == username);
+    }
+
+    public async Task<MemberDto> GetMemberByName(string username)
+    {
+        return await _context.Users.Where(x => x.Username == username)
+            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<MemberDto>> GetMembers()
+    {
+        return await _context.Users
+            .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
     }
 }
