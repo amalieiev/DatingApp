@@ -21,7 +21,7 @@ public class UsersService : IUsersService
 
         var user = new AppUser
         {
-            UserName = username.ToLower(),
+            Username = username.ToLower(),
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
             PasswordSalt = hmac.Key
         };
@@ -45,7 +45,7 @@ public class UsersService : IUsersService
 
     public async Task<bool> ChangeUserPassword(string username, string password)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
         if (user is null) return false;
 
@@ -61,6 +61,6 @@ public class UsersService : IUsersService
 
     public async Task<AppUser> GetUserByUserName(string username)
     {
-        return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.UserName == username);
+        return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.Username == username);
     }
 }

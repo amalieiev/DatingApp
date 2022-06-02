@@ -32,7 +32,7 @@ public class BuggyController : ControllerBase
     public ActionResult<string> GetServerError()
     {
         var user = _context.Users.Find(-1);
-        return user.UserName;
+        return user.Username;
     }
     
     [HttpGet("bad-request")]

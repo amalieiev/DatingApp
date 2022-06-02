@@ -33,20 +33,20 @@ public class AccountController : ControllerBase
     [HttpPost("Register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto data)
     {
-        var isUserExist = await _context.Users.AnyAsync(x => x.UserName.ToLower() == data.Username.ToLower());
+        var isUserExist = await _context.Users.AnyAsync(x => x.Username.ToLower() == data.Username.ToLower());
 
         if (isUserExist) return BadRequest("Username is already taken");
 
         var user = await _usersService.CreateUser(data.Username, data.Password);
 
-        return new UserDto {Username = user.UserName, Token = _tokenService.CreateToken(user)};
+        return new UserDto {Username = user.Username, Token = _tokenService.CreateToken(user)};
     }
 
     [AllowAnonymous]
     [HttpPost("Login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto data)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == data.Username);
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == data.Username);
 
         if (user is null) return Unauthorized("User not found");
 
@@ -65,7 +65,7 @@ public class AccountController : ControllerBase
     [HttpPost("ChangePassword")]
     public async Task<ActionResult<bool>> ChangePassword([FromBody] LoginDto data)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == data.Username);
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == data.Username);
 
         if (user is null) return Unauthorized("User not found");
 
