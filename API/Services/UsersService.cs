@@ -71,6 +71,8 @@ public class UsersService : IUsersService
 
     public async Task<MemberDto> GetMemberByName(string username)
     {
+        // var user = await GetUserByUserName(username);
+        // return _mapper.Map<MemberDto>(user);
         return await _context.Users.Where(x => x.Username == username)
             .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
