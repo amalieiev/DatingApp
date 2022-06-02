@@ -4,9 +4,9 @@ using AutoMapper;
 
 namespace API.Profiles;
 
-public class AppUserProfile : Profile
+public class MapperProfile : Profile
 {
-    public AppUserProfile()
+    public MapperProfile()
     {
         CreateMap<AppUser, MemberDto>();
         CreateMap<Photo, PhotoDto>();
