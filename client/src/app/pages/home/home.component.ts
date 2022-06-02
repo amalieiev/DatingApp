@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IUser } from '../shared/interfaces/user.interface';
-import { AccountService } from '../shared/data-access/account.service';
-import { IHttpError } from '../shared/interfaces/http-error.interface';
+import { IUser } from '../../shared/interfaces/user.interface';
+import { AccountService } from '../../shared/data-access/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
