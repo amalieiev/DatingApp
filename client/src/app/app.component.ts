@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from './shared/data-access/account.service';
+import { AccountService } from './services/account.service';
 import { Observable } from 'rxjs';
-import { IUser } from './shared/interfaces/user.interface';
-import { IUserAccount } from './shared/interfaces/user-account.interface';
+import { IUser } from './interfaces/user.interface';
+import { IUserAccount } from './interfaces/user-account.interface';
 import { Router } from '@angular/router';
 
 @Component({

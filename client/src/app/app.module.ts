@@ -4,11 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavModule } from './shared/ui/nav/nav.module';
+import { NavModule } from './components/nav/nav.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-import { ErrorsModule } from './shared/ui/errors/errors.module';
-import { ErrorInterceptor } from './shared/error.interceptor';
+import { ErrorsModule } from './components/errors/errors.module';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({

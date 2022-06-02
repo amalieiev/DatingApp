@@ -11,7 +11,5 @@ export class ListComponent implements OnInit {
 
     constructor(private membersService: MembersService) {}
 
-    ngOnInit(): void {
-        console.log(this.members);
-    }
+    ngOnInit(): void {}
 }
