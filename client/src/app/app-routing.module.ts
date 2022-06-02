@@ -16,17 +16,17 @@ const routes: Routes = [
     {
         path: 'list',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./list/list.module').then((m) => m.ListModule),
+        loadChildren: () => import('./pages/list/list.module').then((m) => m.ListModule),
     },
     {
         path: 'messages',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./messages/messages.module').then((m) => m.MessagesModule),
+        loadChildren: () => import('./pages/messages/messages.module').then((m) => m.MessagesModule),
     },
     {
         path: 'matches',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./matches/matches.module').then((m) => m.MatchesModule),
+        loadChildren: () => import('./pages/matches/matches.module').then((m) => m.MatchesModule),
     },
     {
         path: 'home',
