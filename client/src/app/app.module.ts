@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavModule } from './shared/ui/nav/nav.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorsModule } from './shared/ui/errors/errors.module';
+import { ErrorInterceptor } from './shared/error.interceptor';
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,7 +23,13 @@ import { ErrorsModule } from './shared/ui/errors/errors.module';
             positionClass: 'toast-bottom-right',
         }),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
