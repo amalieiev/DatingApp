@@ -8,10 +8,12 @@ import { AccountService } from './data-access/account.service';
 })
 export class AuthGuard implements CanActivate {
     public constructor(private account: AccountService, private router: Router) {}
-    canActivate(): Observable<boolean | UrlTree> {
+
+    public canActivate(): Observable<boolean | UrlTree> {
         return this.account.user.pipe(
             map((user) => {
                 if (user) return true;
+
                 return this.router.createUrlTree(['/home']);
             })
         );
