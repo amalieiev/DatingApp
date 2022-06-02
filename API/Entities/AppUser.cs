@@ -8,5 +8,5 @@ public class AppUser
     public string Username { get; set; }
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
-    public ICollection<Photo> UserPhotos { get; set; }
+    public ICollection<Photo> Photos { get; set; }
 }

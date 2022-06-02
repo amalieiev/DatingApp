@@ -3,6 +3,6 @@ namespace API.DTOs;
 public class MemberDto
 {
     public int Id { get; set; }
-    public string UserName { get; set; }
-    public ICollection<PhotoDto> UserPhotos { get; set; }
+    public string Username { get; set; }
+    public ICollection<PhotoDto> Photos { get; set; }
 }

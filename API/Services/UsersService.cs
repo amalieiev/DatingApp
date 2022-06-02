@@ -40,12 +40,12 @@ public class UsersService : IUsersService
 
     public async Task<IEnumerable<AppUser>> GetAllUsers()
     {
-        return await _context.Users.Include(x => x.UserPhotos).ToListAsync();
+        return await _context.Users.Include(x => x.Photos).ToListAsync();
     }
 
     public async Task<AppUser> GetUserById(int userId)
     {
-        return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.Id == userId);
+        return await _context.Users.Include(x => x.Photos).FirstOrDefaultAsync(x => x.Id == userId);
     }
 
     public async Task<bool> ChangeUserPassword(string username, string password)
@@ -66,13 +66,11 @@ public class UsersService : IUsersService
 
     public async Task<AppUser> GetUserByUserName(string username)
     {
-        return await _context.Users.Include(x => x.UserPhotos).FirstOrDefaultAsync(x => x.Username == username);
+        return await _context.Users.Include(x => x.Photos).FirstOrDefaultAsync(x => x.Username == username);
     }
 
     public async Task<MemberDto> GetMemberByName(string username)
     {
-        // var user = await GetUserByUserName(username);
-        // return _mapper.Map<MemberDto>(user);
         return await _context.Users.Where(x => x.Username == username)
             .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
