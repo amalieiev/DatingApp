@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, take, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of, EMPTY } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { IUserAccount } from '../interfaces/user-account.interface';
@@ -23,6 +23,7 @@ export class AccountService {
                 this.toaster.error(err.error);
                 return EMPTY;
             }),
+            take(1),
             tap((userAccount) => {
                 this.setUser(userAccount);
                 this.toaster.info('User logged in.');

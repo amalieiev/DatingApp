@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Tests", "API.Tests\API.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", "{946AE7DF-A484-4264-8BD1-6E6218FD5292}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Automation.Tests", "DatingApp.Automation.Tests\DatingApp.Automation.Tests.csproj", "{9E34CD77-624E-4DB8-9283-8BCE4FFEA857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{946AE7DF-A484-4264-8BD1-6E6218FD5292}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{946AE7DF-A484-4264-8BD1-6E6218FD5292}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{946AE7DF-A484-4264-8BD1-6E6218FD5292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E34CD77-624E-4DB8-9283-8BCE4FFEA857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E34CD77-624E-4DB8-9283-8BCE4FFEA857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E34CD77-624E-4DB8-9283-8BCE4FFEA857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E34CD77-624E-4DB8-9283-8BCE4FFEA857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
