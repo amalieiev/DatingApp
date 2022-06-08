@@ -1,3 +1,5 @@
+using System.Threading;
+using DatingApp.Automation.Tests.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -6,31 +8,29 @@ namespace DatingApp.Automation.Tests;
 
 public class HomePageTests
 {
+    private readonly IWebDriver _driver = new ChromeDriver();
+    private HomePage _homePage;
+    private MatchesPage _matchesPage;
 
-    private IWebDriver _driver;
-    
-    private readonly By _loginButton = By.XPath("//button[text()='Login']");
-    private readonly By _usernameInput = By.XPath("//input[@name='username']");
-    private readonly By _passwordInput = By.XPath("//input[@name='password']");
-    
     [SetUp]
     public void Setup()
     {
-        _driver = new ChromeDriver();
+        _homePage = new HomePage(_driver);
+        _matchesPage = new MatchesPage(_driver);
+
         _driver.Manage().Cookies.DeleteAllCookies();
         _driver.Manage().Window.Maximize();
     }
 
     [Test]
-    public void ShouldOpenHomePage()
+    public void ShouldLoginUser_WhenCredentialsAreValid()
     {
-        _driver.Navigate().GoToUrl("https://localhost:4200");
-        
-        _driver.FindElement(_usernameInput).SendKeys("david");
-        _driver.FindElement(_passwordInput).SendKeys("qwe123QWE");
-        _driver.FindElement(_loginButton).Click();
-        
-        Assert.Pass();
+        _homePage.NavigateToPage();
+        _homePage.LoginAsUserWithCredentials("david", "qwe123QWE");
+
+        Thread.Sleep(1000);
+
+        _matchesPage.ShouldBeOpen();
     }
 
     [TearDown]
