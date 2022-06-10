@@ -1,5 +1,6 @@
 using API.Data;
 using API.Extensions;
+using API.Helpers;
 using Microsoft.EntityFrameworkCore;
 using API.Services;
 using API.Interfaces;
@@ -19,7 +20,9 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<IUsersService, UsersService>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddDbContext<DataContext>(options =>
