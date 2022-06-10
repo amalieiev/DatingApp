@@ -15,9 +15,18 @@ class PhotoService : IPhotoService
             new Cloudinary(new Account(options.Value.CloudName, options.Value.ApiKey, options.Value.ApiSecret));
     }
 
-    public Task<ImageUploadResult> Upload(IFormFile formFile)
+    public async Task<ImageUploadResult> Upload(IFormFile file)
     {
-        throw new NotImplementedException();
+        var uploadResult = new ImageUploadResult();
+
+        if (file.Length > 0)
+        {
+            using var stream = file.OpenReadStream();
+            uploadResult = await _cloudinary.UploadAsync(new ImageUploadParams()
+                {File = new FileDescription(file.FileName, stream)});
+        }
+
+        return uploadResult;
     }
 
     public Task<DeletionResult> Delete(string publicId)
